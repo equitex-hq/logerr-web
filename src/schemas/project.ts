@@ -5,13 +5,15 @@ import { z } from "zod";
  *
  * @property id - UUID v4 identifier
  * @property name - Project name
- * @property api_key - Project API key
+ * @property public_api_key - Project public API key
+ * @property secret_api_key - Project secret API key
  * @property created_at - Timestamp of creation
  */
 export const projectSchema = z.object({
   id: z.uuid(),
   name: z.string(),
-  api_key: z.string().optional(),
+  public_api_key: z.string().optional(),
+  secret_api_key: z.string().optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
 });
 
@@ -20,7 +22,8 @@ export const projectSchema = z.object({
  *
  * @property id - UUID v4 identifier
  * @property name - Project name
- * @property api_key - Project API key
+ * @property public_api_key - Project public API key
+ * @property secret_api_key - Project secret API key
  * @property created_at - Timestamp of creation
  */
 export type Project = z.infer<typeof projectSchema>;
