@@ -6,6 +6,10 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
+  if (request.nextUrl.pathname.startsWith("/api/ingest")) {
+    return supabaseResponse;
+  }
+
   // With Fluid compute, don't put this client in a global environment
   // variable. Always create a new one on each request.
   const supabase = createServerClient(
