@@ -47,7 +47,7 @@ export function createBrowserClient(
 
   async function sendLogToApi(logEntry: LogEntry) {
     try {
-      await fetch("http://localhost:3000/api/ingest/client", {
+      await fetch("https://logerr.equitex.dev/api/ingest/client", {
         method: "POST",
         headers: {
           "content-type": "application/json",
