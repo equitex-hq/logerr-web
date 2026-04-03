@@ -25,7 +25,6 @@ export async function getProjects(): Promise<Project[]> {
     throw new Error("Invalid projects data");
   }
 
-  logger.info("Successfully fetched projects");
   return parsed.data;
 }
 
@@ -48,6 +47,5 @@ export async function getProjectById(projectId: string): Promise<Project> {
     throw new Error("Invalid project data");
   }
 
-  logger.info(`Successfully fetched project with ID: ${projectId}`);
   return parsed.data;
 }
