@@ -2,6 +2,12 @@ import Link from "next/link";
 
 import { getProjects } from "@/lib/server/projects";
 
+import LogsPanel from "@/components/dashboard/LogsPanel";
+
+export const metadata = {
+  title: "Dashboard",
+};
+
 export default async function Dashboard() {
   const projects = await getProjects();
 
@@ -34,6 +40,9 @@ export default async function Dashboard() {
             </div>
           )}
         </div>
+      </section>
+      <section>
+        <LogsPanel />
       </section>
     </main>
   );
