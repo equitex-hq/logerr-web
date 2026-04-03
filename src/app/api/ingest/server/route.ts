@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       service: body.service,
       message: body.message,
       environment: body.environment,
-      meta: body.meta,
+      meta: body.metadata,
     });
 
     if (insertError) {
