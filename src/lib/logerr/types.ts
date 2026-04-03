@@ -1,15 +1,17 @@
-/**
- * Available log environments.
- */
-export type LogEnvironment = "production" | "development";
+import { LOG_ENVIRONMENTS, LOG_LEVELS } from "@/lib/logerr/constants";
 
 /**
- * Available log levels for logger.
+ * Type representing allowed log environments.
  */
-export type LogLevel = "debug" | "info" | "warn" | "error";
+export type LogEnvironment = (typeof LOG_ENVIRONMENTS)[number];
 
 /**
- * Log metadata type.
+ * Type representing allowed log levels.
+ */
+export type LogLevel = (typeof LOG_LEVELS)[number];
+
+/**
+ * Type representing log metadata.
  */
 export type LogMetadata = Record<string, unknown> | Error;
 
@@ -20,7 +22,7 @@ export type LogMetadata = Record<string, unknown> | Error;
  * @property level - Log level
  * @property service - Service associated with the log (optional)
  * @property message - Log message
- * @property environment - Environment of the log (optional)
+ * @property environment - Environment of the log
  * @property metadata - Additional log metadata (optional)
  */
 export interface LogEntry {
@@ -28,6 +30,6 @@ export interface LogEntry {
   level: LogLevel;
   service?: string;
   message: string;
-  environment?: LogEnvironment;
+  environment: LogEnvironment;
   metadata?: LogMetadata;
 }

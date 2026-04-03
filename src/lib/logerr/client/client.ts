@@ -8,9 +8,9 @@ import { formatLog } from "@/lib/logerr/utils";
 
 export function createBrowserClient(
   publicKey: string,
-  options?: {
+  options: {
     service?: string;
-    environment?: LogEnvironment;
+    environment: LogEnvironment;
   },
 ) {
   function createLog(
@@ -23,7 +23,7 @@ export function createBrowserClient(
       level,
       service: options?.service,
       message,
-      environment: options?.environment,
+      environment: options.environment,
       metadata,
     };
   }
@@ -82,7 +82,13 @@ export function createBrowserClient(
     },
     child: (childService: string) =>
       createBrowserClient(
-        options?.service ? `${options?.service}:${childService}` : childService,
+        publicKey,
+        (options = {
+          service: options.service
+            ? `${options.service}:${childService}`
+            : childService,
+          environment: options.environment,
+        }),
       ),
   };
 }
