@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { satoshi, instrumentSerif, inter } from "@/app/fonts/fonts";
+import { satoshi, instrumentSerif, inter, robotoMono } from "@/app/fonts/fonts";
 
 import "./globals.css";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${instrumentSerif.variable} ${inter.variable} h-full antialiased`}>
+      className={`${satoshi.variable} ${instrumentSerif.variable} ${inter.variable} ${robotoMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
