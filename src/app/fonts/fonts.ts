@@ -1,4 +1,4 @@
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Instrument_Serif, Inter, Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 export const satoshi = localFont({
@@ -23,4 +23,12 @@ export const inter = Inter({
   display: "swap",
   preload: false,
   fallback: ["system-ui", "sans-serif"],
+});
+
+export const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+  display: "fallback",
+  preload: false,
+  fallback: ["monospace"],
 });
