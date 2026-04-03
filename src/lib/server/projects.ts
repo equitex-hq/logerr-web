@@ -28,3 +28,26 @@ export async function getProjects(): Promise<Project[]> {
   logger.info("Successfully fetched projects");
   return parsed.data;
 }
+
+export async function getProjectById(projectId: string): Promise<Project> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("id", projectId)
+    .single();
+
+  if (error) {
+    logger.error("Supabase error:", error);
+    throw new Error("Failed to fetch project from Supabase");
+  }
+
+  const parsed = projectSchema.safeParse(data);
+  if (!parsed.success) {
+    logger.error("Zod validation error:", parsed.error);
+    throw new Error("Invalid project data");
+  }
+
+  logger.info(`Successfully fetched project with ID: ${projectId}`);
+  return parsed.data;
+}
