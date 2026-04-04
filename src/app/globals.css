@@ -4,9 +4,17 @@
   --bg-dark: hsl(0, 0%, 96%);
   --bg: hsl(0, 0%, 98%);
   --bg-light: hsl(0, 0%, 100%);
+  --bg-danger: oklch(93.6% 0.032 17.717);
+  --bg-warning: oklch(95.4% 0.038 75.164);
+  --bg-success: oklch(96.2% 0.044 156.743);
+  --bg-info: oklch(95.6% 0.045 203.388);
   --text: hsl(0, 0%, 9%);
   --text-muted: hsl(0, 0%, 30%);
   --border: hsl(0, 0%, 90%);
+  --danger: oklch(63.7% 0.237 25.331);
+  --warning: oklch(75% 0.183 55.934);
+  --success: oklch(72.3% 0.219 149.579);
+  --info: oklch(78.9% 0.154 211.53);
 }
 
 @theme inline {
@@ -23,6 +31,10 @@
     --bg-dark: hsl(0, 0%, 0%);
     --bg: hsl(0, 0%, 4%);
     --bg-light: hsl(0, 0%, 10%);
+    --bg-danger: oklch(25.8% 0.092 26.042);
+    --bg-warning: oklch(26.6% 0.079 36.259);
+    --bg-success: oklch(26.6% 0.065 152.934);
+    --bg-info: oklch(30.2% 0.056 229.695);
     --text: hsl(0, 0%, 93%);
     --text-muted: hsl(0, 0%, 70%);
     --border: hsl(0, 0%, 10%);
@@ -33,4 +45,21 @@ body {
   background: var(--bg-dark);
   color: var(--text);
   font-family: var(--font-inter);
+}
+
+/* Logs */
+.log {
+  @apply px-4 py-2 text-sm font-mono text-(--text-muted) bg-(--bg);
+
+  &:nth-child(odd) {
+    @apply bg-(--bg-light);
+  }
+
+  &.log-error {
+    @apply text-(--danger) bg-(--bg-danger);
+  }
+
+  &.log-warn {
+    @apply text-(--warning) bg-(--bg-warning);
+  }
 }

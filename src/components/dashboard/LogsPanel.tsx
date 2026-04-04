@@ -47,20 +47,25 @@ export default function LogsPanel({ projectId }: { projectId?: string }) {
     <div className="rounded-lg">
       <div>panel header</div>
       <div className="overflow-x-auto w-full border-t border-(--border) shadow">
-        {logs.map((log) => (
-          <div
-            key={log.id}
-            className="w-full px-4 text-neutral-500 bg-white dark:bg-neutral-900 font-mono">
-            {formatLog({
-              timestamp: log.timestamp,
-              level: log.level,
-              ...(log.service && { service: log.service }),
-              message: log.message,
-              environment: log.environment as LogEnvironment,
-              metadata: log.metadata,
-            })}
-          </div>
-        ))}
+        {logs.map((log) => {
+          const isError = log.level === "error";
+          const isWarn = log.level === "warn";
+
+          return (
+            <div
+              key={log.id}
+              className={`log ${isError ? "log-error" : isWarn ? "log-warn" : ""} w-full`}>
+              {formatLog({
+                timestamp: log.timestamp,
+                level: log.level,
+                ...(log.service && { service: log.service }),
+                message: log.message,
+                environment: log.environment as LogEnvironment,
+                metadata: log.metadata,
+              })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
