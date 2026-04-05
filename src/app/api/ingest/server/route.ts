@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { UnauthorizedError } from "@/lib/errors";
-import { createLogger } from "@/lib/logerr/server";
-import { hashApiKey } from "@/lib/server/api";
+import { isValidApiKey } from "@/lib/server/ingest";
+import { getProjectByApikey } from "@/lib/server/projects";
 import { createClient } from "@/lib/supabase/server";
 
-const debugLogger = createLogger("api:ingest", "development");
-
-export async function POST(request: NextRequest) {
-  debugLogger.debug("Log entry received", {
-    method: request.method,
-    url: request.url,
-  });
-
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
     const secret_key = request.headers.get("x-api-key");
@@ -21,18 +14,17 @@ export async function POST(request: NextRequest) {
       throw new UnauthorizedError("Missing API key");
     }
 
-    const hash = hashApiKey(secret_key);
-    const supabase = await createClient();
-    const { data: project, error: projectError } = await supabase
-      .from("projects")
-      .select("id")
-      .eq("secret_api_key", hash)
-      .single();
-    if (projectError || !project) {
+    if (!(await isValidApiKey(secret_key, true))) {
       throw new UnauthorizedError("Invalid API key");
     }
 
-    const { error: insertError } = await supabase.from("logs").insert({
+    const project = await getProjectByApikey(secret_key, true);
+    if (!project) {
+      throw new UnauthorizedError("Project not found for the provided API key");
+    }
+
+    const supabase = await createClient();
+    const { error } = await supabase.from("logs").insert({
       project_id: project.id,
       timestamp: body.timestamp,
       level: body.level,
@@ -42,14 +34,14 @@ export async function POST(request: NextRequest) {
       meta: body.metadata,
     });
 
-    if (insertError) {
-      throw new Error("Failed to insert log entry into database");
+    if (error) {
+      throw new Error("Failed to insert log entry into database", {
+        cause: error,
+      });
     }
 
-    return NextResponse.json({ status: 201 });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    debugLogger.debug("Error occurred while processing log entry", { error });
-
     // Unauthorized Error
     if (error instanceof UnauthorizedError) {
       return NextResponse.json({ error: error.message }, { status: 401 });
