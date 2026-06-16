@@ -1,11 +1,12 @@
 import "server-only";
 
+import { LOGERR_ENVIRONMENT } from "@/lib/logerr/config";
 import { createLogger } from "@/lib/logerr/server";
 import { hashApiKey } from "@/lib/server/api";
 import { createClient } from "@/lib/supabase/server";
 import { Project, projectSchema } from "@/schemas/project";
 
-const logger = createLogger("backend:projects", "production");
+const logger = createLogger("backend:projects", LOGERR_ENVIRONMENT);
 
 /**
  * Fetches all projects.
