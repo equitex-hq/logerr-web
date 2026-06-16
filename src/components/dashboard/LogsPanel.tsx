@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 
 import { fetchLogs } from "@/lib/actions/logs";
-import { LogEnvironment } from "@/lib/logerr/types";
-import { formatLog } from "@/lib/logerr/utils";
 import { Log } from "@/schemas/log";
 
 export default function LogsPanel({ projectId }: { projectId?: string }) {
@@ -55,14 +53,7 @@ export default function LogsPanel({ projectId }: { projectId?: string }) {
             <div
               key={log.id}
               className={`log ${isError ? "log-error" : isWarn ? "log-warn" : ""} w-full`}>
-              {formatLog({
-                timestamp: log.timestamp,
-                level: log.level,
-                ...(log.service && { service: log.service }),
-                message: log.message,
-                environment: log.environment as LogEnvironment,
-                metadata: log.metadata,
-              })}
+              {`${log.timestamp} [${log.level.toUpperCase()}]${log.service ? ` (${log.service})` : ""} ${log.message}`}
             </div>
           );
         })}
