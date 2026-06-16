@@ -1,5 +1,7 @@
-import { createServerClient } from "@/lib/logerr/server/server";
-import { LogEnvironment } from "@/lib/logerr/types";
+import "server-only";
+
+import { createServerClient } from "@equitex/logerr";
+import type { LogEnvironment } from "@equitex/logerr";
 
 /**
  * Creates a server-side logger instance.

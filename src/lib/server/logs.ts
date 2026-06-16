@@ -1,10 +1,11 @@
 import "server-only";
 
+import { LOGERR_ENVIRONMENT } from "@/lib/logerr/config";
 import { createLogger } from "@/lib/logerr/server";
 import { createClient } from "@/lib/supabase/server";
 import { Log, logSchema } from "@/schemas/log";
 
-const logger = createLogger("backend:logs", "production");
+const logger = createLogger("backend:logs", LOGERR_ENVIRONMENT);
 
 /**
  * Fetches logs with optional filtering.

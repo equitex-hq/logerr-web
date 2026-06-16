@@ -1,5 +1,5 @@
-import { createBrowserClient } from "@/lib/logerr/client/client";
-import { LogEnvironment } from "@/lib/logerr/types";
+import { createBrowserClient } from "@equitex/logerr";
+import type { LogEnvironment } from "@equitex/logerr";
 
 /**
  * Creates a client-side logger instance.
