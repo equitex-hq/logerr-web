@@ -84,7 +84,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       { success: true },
       {
         headers: {
-          Origin: origin,
+          "Access-Control-Allow-Origin": origin,
           Vary: "Origin",
         },
       },
