@@ -57,7 +57,7 @@ export async function isOriginAllowed(origin: string): Promise<boolean> {
  * @param project_id Project ID
  * @returns `true` if the origin is allowed for the project, `false` otherwise
  */
-export async function isProjectOrigin(
+export async function isOriginAllowedForProject(
   origin: string,
   project_id: string,
 ): Promise<boolean> {

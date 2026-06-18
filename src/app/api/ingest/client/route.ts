@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { UnauthorizedError, ForbiddenError } from "@/lib/errors";
-import { isOriginAllowed, isProjectOrigin } from "@/lib/server/allowed-origins";
+import {
+  isOriginAllowed,
+  isOriginAllowedForProject,
+} from "@/lib/server/allowed-origins";
 import { isValidApiKey } from "@/lib/server/ingest";
 import { getProjectByApikey } from "@/lib/server/projects";
 import { createClient } from "@/lib/supabase/server";
@@ -58,7 +61,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       throw new UnauthorizedError("Project not found for the provided API key");
     }
 
-    const is_allowed = await isProjectOrigin(origin, project.id);
+    const is_allowed = await isOriginAllowedForProject(origin, project.id);
     if (!is_allowed) {
       throw new ForbiddenError("Access denied");
     }
