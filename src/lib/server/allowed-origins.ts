@@ -61,9 +61,9 @@ export async function isProjectOrigin(
   origin: string,
   project_id: string,
 ): Promise<boolean> {
-  const allowed_origins = await (
-    await getAllowedOrigins(true, project_id)
-  ).map((o) => o.origin);
+  const allowed_origins = (await getAllowedOrigins(true, project_id)).map(
+    (o) => o.origin,
+  );
 
   return allowed_origins.includes(origin);
 }
