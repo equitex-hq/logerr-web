@@ -23,6 +23,18 @@ export class UnauthorizedError extends Error {
 }
 
 /**
+ * 403 Forbidden
+ *
+ * The client does not have access rights to the content.
+ */
+export class ForbiddenError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+    this.name = "ForbiddenError";
+  }
+}
+
+/**
  * 404 Not Found
  *
  * The server cannot find the requested resource.
